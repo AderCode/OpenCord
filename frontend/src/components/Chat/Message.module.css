@@ -1,0 +1,42 @@
+.message {
+  display: flex;
+  gap: var(--space-md);
+  padding: var(--space-xs) var(--space-lg);
+  border-radius: var(--radius-sm);
+  transition: background var(--transition-fast);
+}
+
+.message:hover {
+  background: var(--glass-bg);
+}
+
+.body {
+  flex: 1;
+  min-width: 0;
+}
+
+.header {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-sm);
+  margin-bottom: 2px;
+}
+
+.username {
+  font-weight: 600;
+  font-size: var(--font-size-md);
+  color: var(--text-primary);
+}
+
+.time {
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+}
+
+.content {
+  font-size: var(--font-size-md);
+  color: var(--text-secondary);
+  line-height: 1.5;
+  word-break: break-word;
+  white-space: pre-wrap;
+}

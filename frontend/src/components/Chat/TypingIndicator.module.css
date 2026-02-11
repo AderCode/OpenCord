@@ -1,0 +1,6 @@
+.container {
+  min-height: 4px;
+  padding: 0 var(--space-lg);
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+}

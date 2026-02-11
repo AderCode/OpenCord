@@ -1,0 +1,24 @@
+.button {
+  position: absolute;
+  bottom: var(--space-lg);
+  right: var(--space-xl);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--glass-bg-active);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-full);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  animation: fadeIn 0.2s ease;
+}
+
+.button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: var(--glass-border-hover);
+}

@@ -1,0 +1,30 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+.connected {
+  background: var(--status-online);
+}
+
+.connecting {
+  background: var(--status-warning);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.disconnected {
+  background: var(--status-offline);
+}
+
+.label {
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+}

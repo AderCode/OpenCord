@@ -1,0 +1,28 @@
+.container {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+}
+
+.list {
+  height: 100%;
+  overflow-y: auto;
+  padding: var(--space-sm) 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.sentinel {
+  display: flex;
+  justify-content: center;
+  padding: var(--space-md);
+}
+
+.empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  color: var(--text-muted);
+  font-size: var(--font-size-md);
+}

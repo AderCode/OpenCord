@@ -1,0 +1,65 @@
+.page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background: var(--bg-gradient);
+  padding: var(--space-lg);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xl);
+  padding: var(--space-2xl) var(--space-2xl);
+  max-width: 400px;
+  width: 100%;
+  animation: slideUp 0.4s ease;
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.logoIcon {
+  width: 64px;
+  height: 64px;
+}
+
+.title {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitle {
+  color: var(--text-secondary);
+  font-size: var(--font-size-md);
+  text-align: center;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: var(--space-md) var(--space-xl);
+  background: var(--accent-gradient);
+  color: white;
+  font-weight: 600;
+  font-size: var(--font-size-lg);
+  border-radius: var(--radius-sm);
+  transition: opacity var(--transition-fast);
+  text-decoration: none;
+}
+
+.button:hover {
+  opacity: 0.9;
+}
