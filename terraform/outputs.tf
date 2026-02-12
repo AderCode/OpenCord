@@ -22,3 +22,13 @@ output "cdn_url" {
   description = "CDN / frontend endpoint"
   value       = "https://cdn.${var.base_domain}"
 }
+
+output "cognito_client_id" {
+  description = "Cognito app client ID (needed for frontend)"
+  value       = module.cognito.client_id
+}
+
+output "frontend_bucket" {
+  description = "S3 bucket name for frontend assets"
+  value       = module.s3_cloudfront.bucket_name
+}

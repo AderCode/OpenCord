@@ -33,6 +33,22 @@ Before you begin, make sure you have the following:
 | **AWS CLI** (v2)      | Connects Terraform to your AWS account | [AWS CLI install guide](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) |
 | **Git**               | Downloads the OpenCord code            | [git-scm.com](https://git-scm.com/downloads)                                                           |
 
+### Quick Start (Recommended)
+
+Once you have your AWS credentials configured (Step 1) and domain pointed to Route 53 (Step 2), the install wizard handles everything else. The scripts work standalone — if the repository isn't already cloned, they'll download it automatically.
+
+**Mac / Linux:**
+```bash
+./installers/mac/install.sh
+```
+
+**Windows (PowerShell):**
+```powershell
+.\installers\windows\install.ps1
+```
+
+The wizard will check for missing tools, offer to install them, and walk you through the rest. Continue below if you prefer manual setup.
+
 ## Setup Guide
 
 ### Step 1: Configure AWS credentials
@@ -203,7 +219,19 @@ For a small community (under a few hundred users), your AWS bill will typically 
 
 ## Tearing Down
 
-If you want to remove everything OpenCord created in your AWS account:
+The uninstall wizard handles everything — it destroys all AWS infrastructure, and optionally removes the Terraform state storage and local build files:
+
+**Mac / Linux:**
+```bash
+./installers/mac/uninstall.sh
+```
+
+**Windows (PowerShell):**
+```powershell
+.\installers\windows\uninstall.ps1
+```
+
+Or, if you prefer to do it manually:
 
 ```bash
 cd terraform
