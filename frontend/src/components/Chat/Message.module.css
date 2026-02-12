@@ -38,6 +38,16 @@
   color: var(--text-muted);
 }
 
+.ownerBadge {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: #fff;
+  background: var(--accent-primary, #5865f2);
+  padding: 1px 6px;
+  border-radius: var(--radius-sm);
+  line-height: 1.4;
+}
+
 .editedLabel {
   font-size: var(--font-size-xs);
   color: var(--text-muted);

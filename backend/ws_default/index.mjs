@@ -6,8 +6,8 @@ const ddb = new DynamoDBClient({});
 const MESSAGES_TABLE = process.env.MESSAGES_TABLE;
 const CONNECTIONS_TABLE = process.env.CONNECTIONS_TABLE;
 
-// Look up username from connections table by connectionId
-async function lookupUsername(connectionId) {
+// Look up username and role from connections table by connectionId
+async function lookupUser(connectionId) {
   const result = await ddb.send(
     new QueryCommand({
       TableName: CONNECTIONS_TABLE,
@@ -20,7 +20,10 @@ async function lookupUsername(connectionId) {
     })
   );
   const item = result.Items?.[0];
-  return item?.username?.S || "anonymous";
+  return {
+    username: item?.username?.S || "anonymous",
+    role: item?.role?.S || "member",
+  };
 }
 
 // Look up a message by its message_id using the GSI
@@ -103,7 +106,7 @@ export const handler = async (event) => {
       return { statusCode: 400, body: "Missing content" };
     }
 
-    const username = await lookupUsername(connectionId);
+    const { username, role } = await lookupUser(connectionId);
     const timestamp = new Date().toISOString();
     const message_id = crypto.randomUUID();
 
@@ -127,6 +130,7 @@ export const handler = async (event) => {
       timestamp,
       content,
       username,
+      role,
     });
 
     return { statusCode: 200, body: "Message sent" };
@@ -145,8 +149,8 @@ export const handler = async (event) => {
       return { statusCode: 404, body: "Message not found" };
     }
 
-    const username = await lookupUsername(connectionId);
-    if (item.username?.S !== username) {
+    const { username, role } = await lookupUser(connectionId);
+    if (role !== "owner" && item.username?.S !== username) {
       return { statusCode: 403, body: "Not authorized to edit this message" };
     }
 
@@ -192,8 +196,8 @@ export const handler = async (event) => {
       return { statusCode: 404, body: "Message not found" };
     }
 
-    const username = await lookupUsername(connectionId);
-    if (item.username?.S !== username) {
+    const { username, role } = await lookupUser(connectionId);
+    if (role !== "owner" && item.username?.S !== username) {
       return { statusCode: 403, body: "Not authorized to delete this message" };
     }
 

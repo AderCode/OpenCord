@@ -100,6 +100,7 @@ export default function ChatArea() {
   );
 
   const currentUsername = user?.username || 'anonymous';
+  const currentUserRole = user?.role || 'member';
 
   return (
     <div className={styles.container}>
@@ -114,6 +115,7 @@ export default function ChatArea() {
         onEdit={handleEdit}
         onDelete={handleDelete}
         currentUsername={currentUsername}
+        currentUserRole={currentUserRole}
       />
       <TypingIndicator />
       <MessageInput onSend={handleSend} channel={activeChannel} />

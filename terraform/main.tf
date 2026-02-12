@@ -23,6 +23,8 @@ module "cognito" {
   base_domain     = var.base_domain
   certificate_arn = module.acm.certificate_arn
   zone_id         = module.dns.zone_id
+  owner_email     = var.owner_email
+  owner_password  = var.owner_password
 }
 
 # Lambdas — depends on dynamodb, cognito

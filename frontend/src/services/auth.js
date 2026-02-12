@@ -68,11 +68,13 @@ export async function refreshTokens() {
 export function decodeIdToken(idToken) {
   try {
     const payload = JSON.parse(atob(idToken.split('.')[1]));
+    const groups = Array.isArray(payload['cognito:groups']) ? payload['cognito:groups'] : [];
     return {
       sub: payload.sub,
       email: payload.email,
       username: payload.email?.split('@')[0] || payload['cognito:username'] || 'user',
       exp: payload.exp,
+      role: groups.includes('Owner') ? 'owner' : 'member',
     };
   } catch {
     return null;

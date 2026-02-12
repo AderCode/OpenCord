@@ -56,6 +56,49 @@ resource "aws_cognito_user_pool_client" "app" {
   allowed_oauth_flows_user_pool_client = true
 }
 
+resource "aws_cognito_user_group" "owner" {
+  name         = "Owner"
+  user_pool_id = aws_cognito_user_pool.this.id
+  description  = "Owner role with full moderation permissions"
+}
+
+resource "null_resource" "owner_user" {
+  triggers = {
+    owner_email = var.owner_email
+  }
+
+  provisioner "local-exec" {
+    command = <<-EOT
+      aws cognito-idp admin-create-user \
+        --user-pool-id ${aws_cognito_user_pool.this.id} \
+        --username ${var.owner_email} \
+        --user-attributes Name=email,Value=${var.owner_email} Name=email_verified,Value=true \
+        --message-action SUPPRESS \
+        --region ${data.aws_region.current.name} || true
+
+      aws cognito-idp admin-set-user-password \
+        --user-pool-id ${aws_cognito_user_pool.this.id} \
+        --username ${var.owner_email} \
+        --password "${var.owner_password}" \
+        --permanent \
+        --region ${data.aws_region.current.name}
+
+      aws cognito-idp admin-add-user-to-group \
+        --user-pool-id ${aws_cognito_user_pool.this.id} \
+        --username ${var.owner_email} \
+        --group-name Owner \
+        --region ${data.aws_region.current.name}
+    EOT
+  }
+
+  depends_on = [
+    aws_cognito_user_pool.this,
+    aws_cognito_user_group.owner,
+  ]
+}
+
+data "aws_region" "current" {}
+
 resource "aws_cognito_user_pool_domain" "custom" {
   domain       = "auth.${var.base_domain}"
   user_pool_id = aws_cognito_user_pool.this.id

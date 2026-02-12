@@ -7,7 +7,7 @@ const timeFormatter = new Intl.DateTimeFormat(undefined, {
   minute: '2-digit',
 });
 
-export default function Message({ messageId, username, content, timestamp, editedAt, isOwn, onEdit, onDelete }) {
+export default function Message({ messageId, username, content, timestamp, editedAt, isOwn, isOwner, role, onEdit, onDelete }) {
   const [editing, setEditing] = useState(false);
   const [editContent, setEditContent] = useState(content);
 
@@ -51,6 +51,7 @@ export default function Message({ messageId, username, content, timestamp, edite
       <div className={styles.body}>
         <div className={styles.header}>
           <span className={styles.username}>{username}</span>
+          {role === 'owner' && <span className={styles.ownerBadge}>Owner</span>}
           <span className={styles.time}>
             {timeFormatter.format(new Date(timestamp))}
           </span>
@@ -78,7 +79,7 @@ export default function Message({ messageId, username, content, timestamp, edite
           <p className={styles.content}>{content}</p>
         )}
       </div>
-      {isOwn && !editing && (
+      {(isOwn || isOwner) && !editing && (
         <div className={styles.actions}>
           <button
             className={styles.actionBtn}

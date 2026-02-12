@@ -11,6 +11,8 @@ export const handler = async (event) => {
   const authorizer = event.requestContext.authorizer || {};
   const userId = authorizer.userId || "unknown";
   const username = authorizer.username || "anonymous";
+  const groups = authorizer.groups || "";
+  const role = groups.split(",").includes("Owner") ? "owner" : "member";
 
   const ttl = Math.floor(Date.now() / 1000) + 86400; // 24 hours
 
@@ -25,6 +27,7 @@ export const handler = async (event) => {
           connected_at: { S: new Date().toISOString() },
           user_id: { S: userId },
           username: { S: username },
+          role: { S: role },
         },
       })
     );

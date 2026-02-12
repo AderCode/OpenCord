@@ -12,3 +12,14 @@ variable "zone_id" {
   description = "Route53 hosted zone ID"
   type        = string
 }
+
+variable "owner_email" {
+  description = "Email address for the Owner user"
+  type        = string
+}
+
+variable "owner_password" {
+  description = "Password for the Owner user"
+  type        = string
+  sensitive   = true
+}

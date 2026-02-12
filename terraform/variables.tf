@@ -40,3 +40,14 @@ variable "enable_kms_encryption" {
   type        = bool
   default     = false
 }
+
+variable "owner_email" {
+  description = "Email address for the Owner user seeded at deploy time"
+  type        = string
+}
+
+variable "owner_password" {
+  description = "Password for the Owner user seeded at deploy time"
+  type        = string
+  sensitive   = true
+}

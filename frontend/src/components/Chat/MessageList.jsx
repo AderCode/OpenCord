@@ -13,7 +13,7 @@ function shouldShowDate(messages, index) {
   return prev !== curr;
 }
 
-export default function MessageList({ messages, hasMore, onLoadMore, onEdit, onDelete, currentUsername }) {
+export default function MessageList({ messages, hasMore, onLoadMore, onEdit, onDelete, currentUsername, currentUserRole }) {
   const listRef = useRef(null);
   const [isAtBottom, setIsAtBottom] = useState(true);
   const prevLengthRef = useRef(0);
@@ -68,6 +68,8 @@ export default function MessageList({ messages, hasMore, onLoadMore, onEdit, onD
               timestamp={msg.timestamp}
               editedAt={msg.editedAt || msg.edited_at}
               isOwn={msg.username === currentUsername}
+              isOwner={currentUserRole === 'owner'}
+              role={msg.role}
               onEdit={onEdit}
               onDelete={onDelete}
             />

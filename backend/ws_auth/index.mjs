@@ -112,10 +112,12 @@ export const handler = async (event) => {
     }
 
     // Return Allow policy with user context
+    const groups = Array.isArray(payload["cognito:groups"]) ? payload["cognito:groups"].join(",") : "";
     return generatePolicy(payload.sub, "Allow", event.methodArn, {
       userId: payload.sub,
       username: payload["cognito:username"] || payload.preferred_username || payload.sub,
       email: payload.email || "",
+      groups,
     });
   } catch (err) {
     console.error("Auth error:", err);
