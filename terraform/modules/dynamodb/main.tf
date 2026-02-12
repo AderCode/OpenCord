@@ -30,6 +30,17 @@ resource "aws_dynamodb_table" "messages" {
     type = "S"
   }
 
+  attribute {
+    name = "message_id"
+    type = "S"
+  }
+
+  global_secondary_index {
+    name            = "message_id-index"
+    hash_key        = "message_id"
+    projection_type = "ALL"
+  }
+
   server_side_encryption {
     enabled     = var.enable_kms_encryption
     kms_key_arn = var.enable_kms_encryption ? aws_kms_key.dynamodb[0].arn : null

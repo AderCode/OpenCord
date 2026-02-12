@@ -16,15 +16,28 @@ export default function ChatArea() {
     wsStatus,
     hasMore,
     addMessage,
+    editMessage,
+    deleteMessage,
     setWsStatus,
     loadMore,
   } = useChat();
 
   const handleWsMessage = useCallback(
     (data) => {
-      addMessage(data);
+      switch (data.type) {
+        case 'editMessage':
+          editMessage(data.message_id, data.content, data.edited_at);
+          break;
+        case 'deleteMessage':
+          deleteMessage(data.message_id);
+          break;
+        case 'newMessage':
+        default:
+          addMessage(data);
+          break;
+      }
     },
-    [addMessage]
+    [addMessage, editMessage, deleteMessage]
   );
 
   const handleStatusChange = useCallback(
@@ -45,14 +58,15 @@ export default function ChatArea() {
 
   const handleSend = useCallback(
     (content) => {
+      const placeholderId = crypto.randomUUID();
       const msg = {
         action: 'sendMessage',
         channel: activeChannel,
         content,
       };
       send(msg);
-      // Optimistic add — use local username for immediate display
       addMessage({
+        message_id: placeholderId,
         channel: activeChannel,
         content,
         username: user?.username || 'anonymous',
@@ -61,6 +75,31 @@ export default function ChatArea() {
     },
     [activeChannel, user, send, addMessage]
   );
+
+  const handleEdit = useCallback(
+    (messageId, content) => {
+      send({
+        action: 'editMessage',
+        message_id: messageId,
+        content,
+      });
+      editMessage(messageId, content, new Date().toISOString());
+    },
+    [send, editMessage]
+  );
+
+  const handleDelete = useCallback(
+    (messageId) => {
+      send({
+        action: 'deleteMessage',
+        message_id: messageId,
+      });
+      deleteMessage(messageId);
+    },
+    [send, deleteMessage]
+  );
+
+  const currentUsername = user?.username || 'anonymous';
 
   return (
     <div className={styles.container}>
@@ -72,6 +111,9 @@ export default function ChatArea() {
         messages={messages}
         hasMore={hasMore}
         onLoadMore={loadMore}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+        currentUsername={currentUsername}
       />
       <TypingIndicator />
       <MessageInput onSend={handleSend} channel={activeChannel} />

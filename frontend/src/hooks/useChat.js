@@ -57,6 +57,26 @@ export default function useChat() {
     [dispatch]
   );
 
+  const editMessage = useCallback(
+    (message_id, content, edited_at) => {
+      dispatch({
+        type: CHAT_ACTIONS.EDIT_MESSAGE,
+        payload: { message_id, content, edited_at },
+      });
+    },
+    [dispatch]
+  );
+
+  const deleteMessage = useCallback(
+    (message_id) => {
+      dispatch({
+        type: CHAT_ACTIONS.DELETE_MESSAGE,
+        payload: { message_id },
+      });
+    },
+    [dispatch]
+  );
+
   const setWsStatus = useCallback(
     (status) => {
       dispatch({ type: CHAT_ACTIONS.SET_WS_STATUS, payload: status });
@@ -70,6 +90,8 @@ export default function useChat() {
     loadMessages,
     loadMore,
     addMessage,
+    editMessage,
+    deleteMessage,
     setWsStatus,
   };
 }

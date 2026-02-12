@@ -13,7 +13,7 @@ function shouldShowDate(messages, index) {
   return prev !== curr;
 }
 
-export default function MessageList({ messages, hasMore, onLoadMore }) {
+export default function MessageList({ messages, hasMore, onLoadMore, onEdit, onDelete, currentUsername }) {
   const listRef = useRef(null);
   const [isAtBottom, setIsAtBottom] = useState(true);
   const prevLengthRef = useRef(0);
@@ -57,14 +57,19 @@ export default function MessageList({ messages, hasMore, onLoadMore }) {
           </div>
         )}
         {messages.map((msg, i) => (
-          <div key={`${msg.timestamp}-${msg.username}`}>
+          <div key={msg.message_id || `${msg.timestamp}-${msg.username}`}>
             {shouldShowDate(messages, i) && (
               <DateDivider date={msg.timestamp} />
             )}
             <Message
+              messageId={msg.message_id}
               username={msg.username}
               content={msg.content}
               timestamp={msg.timestamp}
+              editedAt={msg.editedAt || msg.edited_at}
+              isOwn={msg.username === currentUsername}
+              onEdit={onEdit}
+              onDelete={onDelete}
             />
           </div>
         ))}

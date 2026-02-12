@@ -4,10 +4,15 @@
   padding: var(--space-xs) var(--space-lg);
   border-radius: var(--radius-sm);
   transition: background var(--transition-fast);
+  position: relative;
 }
 
 .message:hover {
   background: var(--glass-bg);
+}
+
+.message:hover .actions {
+  opacity: 1;
 }
 
 .body {
@@ -33,10 +38,100 @@
   color: var(--text-muted);
 }
 
+.editedLabel {
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  font-style: italic;
+}
+
 .content {
   font-size: var(--font-size-md);
   color: var(--text-secondary);
   line-height: 1.5;
   word-break: break-word;
   white-space: pre-wrap;
+}
+
+.actions {
+  position: absolute;
+  top: var(--space-xs);
+  right: var(--space-md);
+  display: flex;
+  gap: 2px;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.actionBtn {
+  background: var(--bg-secondary, #2b2d31);
+  border: 1px solid var(--border-subtle, #3f4147);
+  border-radius: var(--radius-sm);
+  padding: 2px 6px;
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  line-height: 1;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.actionBtn:hover {
+  background: var(--bg-tertiary, #383a40);
+  color: var(--text-primary);
+}
+
+.editing {
+  margin-top: 4px;
+}
+
+.editTextarea {
+  width: 100%;
+  min-height: 60px;
+  padding: var(--space-sm);
+  border: 1px solid var(--border-subtle, #3f4147);
+  border-radius: var(--radius-sm);
+  background: var(--bg-primary, #1e1f22);
+  color: var(--text-primary);
+  font-size: var(--font-size-md);
+  font-family: inherit;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.editTextarea:focus {
+  outline: none;
+  border-color: var(--accent-primary, #5865f2);
+}
+
+.editButtons {
+  display: flex;
+  gap: var(--space-sm);
+  margin-top: var(--space-xs);
+}
+
+.saveBtn,
+.cancelBtn {
+  padding: 4px 12px;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.saveBtn {
+  background: var(--accent-primary, #5865f2);
+  color: #fff;
+}
+
+.saveBtn:hover {
+  background: var(--accent-hover, #4752c4);
+}
+
+.cancelBtn {
+  background: transparent;
+  color: var(--text-muted);
+}
+
+.cancelBtn:hover {
+  text-decoration: underline;
 }

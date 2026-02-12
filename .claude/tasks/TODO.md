@@ -13,7 +13,7 @@ _(nothing currently in progress)_
 ## Remaining — Backend Enhancements
 
 - [x] WebSocket authorizer — Lambda REQUEST authorizer on `$connect` validates JWT; server derives username from connections table
-- [ ] Message edit/delete API — backend only supports create + read
+- [x] Message edit/delete API — backend only supports create + read
 - [ ] Channel CRUD API — no endpoints to create/list/delete channels; frontend hardcodes `general`, `random`, `help`
 - [ ] Typing indicator events — WebSocket action for `startTyping`/`stopTyping` broadcast
 - [ ] User presence API — expose connected users per channel via REST (DynamoDB connections table exists but isn't queried by frontend)
@@ -24,7 +24,7 @@ _(nothing currently in progress)_
 
 - [ ] Members panel — wire up to real presence data once backend exposes it
 - [ ] Typing indicator — wire up `TypingIndicator.jsx` once backend supports typing events
-- [ ] Message edit/delete UI — once backend supports it
+- [x] Message edit/delete UI — once backend supports it
 - [ ] Channel creation UI — replace the join-by-name input with proper create/browse flow once API exists
 - [ ] Emoji reactions — no backend support yet
 - [ ] File/image uploads — needs S3 presigned URL endpoint

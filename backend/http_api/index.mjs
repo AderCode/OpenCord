@@ -37,6 +37,8 @@ export const handler = async (event) => {
         timestamp: item.timestamp.S,
         content: item.content.S,
         username: item.username?.S || "unknown",
+        message_id: item.message_id?.S || null,
+        edited_at: item.edited_at?.S || null,
       }));
 
       return {
